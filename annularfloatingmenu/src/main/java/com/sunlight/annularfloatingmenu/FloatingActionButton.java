@@ -42,30 +42,15 @@ public class FloatingActionButton extends RoundButton {
      * Constructor that takes parameters collected using {@link FloatingActionMenu.Builder}
      * @param context a reference to the current context
      * @param layoutParams
-     * @param backgroundDrawable
      * @param position
-     * @param contentView
-     * @param contentParams
      */
-    public FloatingActionButton(Context context, ViewGroup.LayoutParams layoutParams,
-                                Drawable backgroundDrawable, int position, View contentView,
-                                LinearLayout.LayoutParams contentParams,
-                                boolean systemOverlay) {
+    public FloatingActionButton(Context context, ViewGroup.LayoutParams layoutParams, int position, boolean systemOverlay) {
         super(context);
         this.systemOverlay = systemOverlay;
 
-        if(!systemOverlay && !(context instanceof Activity)) {
-            throw new RuntimeException("Given context must be an instance of Activity, "
-                    +"since this FAB is not a systemOverlay.");
-        }
-
         setPosition(position, layoutParams);
+        setRadius(context.getResources().getDimensionPixelSize(R.dimen.action_button_size));
 
-        setRadius(DEFAULT_RADIUS);
-
-        /*if(contentView != null) {
-            setContentView(contentView, contentParams);
-        }*/
         setClickable(true);
 
         attach(layoutParams);
@@ -281,10 +266,7 @@ public class FloatingActionButton extends RoundButton {
         public FloatingActionButton build() {
             return new FloatingActionButton(context,
                     layoutParams,
-                    backgroundDrawable,
                     position,
-                    contentView,
-                    contentParams,
                     systemOverlay);
         }
 
