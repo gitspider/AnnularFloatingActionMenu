@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RoundButtonsAttrs">
+
+        <!-- Default Android attrs -->
+        <attr name="android:enabled" />
+        <attr name="android:text" />
+        <attr name="android:textSize" />
+        <attr name="android:textAllCaps" />
+
+        <attr name="rb_defaultColor" format="color" />
+        <attr name="rb_text" format="string" />
+
+        <attr name="rb_textColor" format="color" />
+        <attr name="rb_iconColor" format="color" />
+
+        <attr name="rb_textFont" format="string" />
+        <attr name="rb_iconFont" format="string" />
+
+        <attr name="rb_textSize" format="dimension" />
+        <attr name="rb_iconResource" format="integer" />
+        <attr name="rb_fontIconResource" format="string" />
+        <attr name="rb_fontIconSize" format="dimension" />
+        <attr name="rb_iconPosition" format="enum">
+            <enum name="left" value="1" />
+            <enum name="right" value="2" />
+            <enum name="top" value="3" />
+            <enum name="bottom" value="4" />
+        </attr>
+
+        <attr name="rb_textPosition" format="enum">
+            <enum name="left" value="1" />
+            <enum name="right" value="2" />
+            <enum name="top" value="3" />
+            <enum name="bottom" value="4" />
+        </attr>
+
+        <attr name="rb_textGravity" format="enum">
+            <enum name="top" value="0x30" />
+            <enum name="bottom" value="0x50" />
+            <enum name="left" value="0x03" />
+            <enum name="right" value="0x05" />
+            <enum name="center_vertical" value="0x10" />
+            <enum name="fill_vertical" value="0x70" />
+            <enum name="center_horizontal" value="0x01" />
+            <enum name="fill_horizontal" value="0x07" />
+            <enum name="center" value="0x11" />
+            <enum name="fill" value="0x77" />
+            <enum name="clip_vertical" value="0x80" />
+            <enum name="clip_horizontal" value="0x08" />
+            <enum name="start" value="0x00800003" />
+            <enum name="end" value="0x00800005" />
+        </attr>
+
+        <attr name="rb_iconPaddingLeft" format="dimension" />
+        <attr name="rb_iconPaddingRight" format="dimension" />
+        <attr name="rb_iconPaddingTop" format="dimension" />
+        <attr name="rb_iconPaddingBottom" format="dimension" />
+
+        <attr name="rb_borderColor" format="color" />
+        <attr name="rb_borderWidth" format="dimension" />
+        <attr name="rb_focusColor" format="color" />
+        <attr name="rb_disabledColor" format="color" />
+        <attr name="rb_disabledTextColor" format="color" />
+        <attr name="rb_disabledBorderColor" format="color" />
+        <attr name="rb_radius" format="dimension" />
+        <attr name="rb_textAllCaps" format="boolean" />
+
+        <attr name="rb_ghost" format="boolean" />
+        <attr name="rb_useSystemFont" format="boolean" />
+    </declare-styleable>
+
+</resources> 
