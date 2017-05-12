@@ -17,7 +17,7 @@ import java.util.Map;
  */
 
 public class Utils {
-    private static Map<String, Typeface> cachedFontMap = new HashMap<String, Typeface>();
+    private static Map<String, Typeface> cachedFontMap = new HashMap<>();
 
     public static int pxToSp(final Context context, final float px) {
         return Math.round(px / context.getResources().getDisplayMetrics().scaledDensity);

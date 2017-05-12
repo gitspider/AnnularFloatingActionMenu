@@ -18,7 +18,7 @@ public class SubActionButton extends RoundButton {
         super(context);
 
         setLayoutParams(layoutParams);
-        setRadius(50);
+        setRadius(context.getResources().getDimensionPixelSize(R.dimen.sub_action_button_size));
 
         if(contentView != null) {
             setContentView(contentView, contentParams);

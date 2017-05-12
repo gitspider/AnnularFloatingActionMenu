@@ -62,7 +62,6 @@ public class FloatingActionButton extends RoundButton {
         setPosition(position, layoutParams);
 
         setRadius(DEFAULT_RADIUS);
-        setText("A");
 
         /*if(contentView != null) {
             setContentView(contentView, contentParams);

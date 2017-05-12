@@ -12,6 +12,8 @@ import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.RippleDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
+import android.support.annotation.Nullable;
+import android.support.v4.content.res.ResourcesCompat;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
@@ -135,9 +137,6 @@ public class RoundButton extends LinearLayout {
         mIconView = setupIconView();
         mFontIconView = setupFontIconView();
 
-        int iconIndex, textIndex;
-        View view1, view2;
-
         this.removeAllViews();
         setupBackground();
 
@@ -178,9 +177,11 @@ public class RoundButton extends LinearLayout {
      *
      * @return : TextView
      */
+    @Nullable
     private TextView setupTextView() {
         if (mText == null) {
-            mText = "Button";
+            //mText = "Button";
+            return null;
         }
 
         TextView textView = new TextView(mContext);
@@ -365,16 +366,14 @@ public class RoundButton extends LinearLayout {
 
     }
 
-
     @SuppressLint("NewApi")
     private void setupBackground() {
-
 
         // Default Drawable
         GradientDrawable defaultDrawable = new GradientDrawable();
         defaultDrawable.setCornerRadius(mRadius);
         if (mGhost) {
-            defaultDrawable.setColor(getResources().getColor(android.R.color.transparent)); // Hollow Background
+            defaultDrawable.setColor(ResourcesCompat.getColor(getResources(), android.R.color.transparent, null)); // Hollow Background
         } else {
             defaultDrawable.setColor(mDefaultBackgroundColor);
         }
@@ -741,9 +740,7 @@ public class RoundButton extends LinearLayout {
      */
     public void setRadius(int radius) {
         this.mRadius = radius;
-        if (mIconView != null || mFontIconView != null || mTextView != null) {
-            this.setupBackground();
-        }
+        setupBackground();
     }
 
     /**
