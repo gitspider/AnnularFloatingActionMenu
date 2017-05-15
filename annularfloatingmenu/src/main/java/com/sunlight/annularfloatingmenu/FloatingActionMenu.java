@@ -42,12 +42,12 @@ public class FloatingActionMenu {
     private List<Item> subActionItems;
     /** Reference to the preferred {@link MenuAnimationHandler} object */
     private MenuAnimationHandler animationHandler;
-    /** Reference to a listener that listens open/close actions */
+    /** Reference to a listener that listens isOpened/close actions */
     private MenuStateChangeListener stateChangeListener;
     /** whether the openings and closings should be animated or not */
     private boolean animated;
-    /** whether the menu is currently open or not */
-    private boolean open;
+    /** whether the menu is currently isOpened or not */
+    private boolean isOpened;
     /** whether the menu is an overlay for all other activities */
     private boolean systemOverlay;
     /** a simple layout to contain all the sub action views in the system overlay mode */
@@ -83,7 +83,7 @@ public class FloatingActionMenu {
         this.animated = animated;
         this.systemOverlay = systemOverlay;
         // The menu is initially closed.
-        this.open = false;
+        this.isOpened = false;
 
         this.stateChangeListener = stateChangeListener;
 
@@ -179,7 +179,7 @@ public class FloatingActionMenu {
 
                 // Initially, place all items right at the center of the main action view
                 // Because they are supposed to start animating from that point.
-                final FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(subActionItems.get(i).width, subActionItems.get(i).height, Gravity.TOP | Gravity.LEFT);
+                final FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(subActionItems.get(i).width, subActionItems.get(i).height, Gravity.TOP | Gravity.START);
 
                 if(systemOverlay) {
                     params.setMargins(center.x - overlayParams.x - subActionItems.get(i).width / 2, center.y - overlayParams.y - subActionItems.get(i).height / 2, 0, 0);
@@ -211,8 +211,8 @@ public class FloatingActionMenu {
                 addViewToCurrentContainer(subActionItems.get(i).view, params);
             }
         }
-        // do not forget to specify that the menu is open.
-        open = true;
+        // do not forget to specify that the menu is isOpened.
+        isOpened = true;
 
         if(stateChangeListener != null) {
             stateChangeListener.onMenuOpened(this);
@@ -241,7 +241,7 @@ public class FloatingActionMenu {
             detachOverlayContainer();
         }
         // do not forget to specify that the menu is now closed.
-        open = false;
+        isOpened = false;
 
         if(stateChangeListener != null) {
             stateChangeListener.onMenuClosed(this);
@@ -250,10 +250,10 @@ public class FloatingActionMenu {
 
     /**
      * Toggles the menu
-     * @param animated if true, the open/close action is executed by the current {@link MenuAnimationHandler}
+     * @param animated if true, the isOpened/close action is executed by the current {@link MenuAnimationHandler}
      */
     public void toggle(boolean animated) {
-        if(open) {
+        if(isOpened) {
             close(animated);
         }
         else {
@@ -262,10 +262,10 @@ public class FloatingActionMenu {
     }
 
     /**
-     * @return whether the menu is open or not
+     * @return whether the menu is isOpened or not
      */
     public boolean isOpen() {
-        return open;
+        return isOpened;
     }
 
     /**
@@ -283,7 +283,7 @@ public class FloatingActionMenu {
      * Recalculates the positions of each sub action item on demand.
      */
     public void updateItemPositions() {
-        // Only update if the menu is currently open
+        // Only update if the menu is currently isOpened
         if(!isOpen()) {
             return;
         }
@@ -462,11 +462,11 @@ public class FloatingActionMenu {
                 bottom = tm + subActionItems.get(i).height;
             }
         }
-        overlayParams.width = right - left;
-        overlayParams.height = bottom - top;
-        overlayParams.x = left;
-        overlayParams.y = top;
-        overlayParams.gravity = Gravity.TOP | Gravity.LEFT;
+        overlayParams.width = right - left + 20;
+        overlayParams.height = bottom - top + 20;
+        overlayParams.x = left - 10;
+        overlayParams.y = top - 10;
+        overlayParams.gravity = Gravity.TOP | Gravity.START;
         return overlayParams;
     }
 
@@ -577,7 +577,7 @@ public class FloatingActionMenu {
     }
 
     /**
-     * A listener to listen open/closed state changes of the Menu
+     * A listener to listen isOpened/closed state changes of the Menu
      */
     public static interface MenuStateChangeListener {
         public void onMenuOpened(FloatingActionMenu menu);

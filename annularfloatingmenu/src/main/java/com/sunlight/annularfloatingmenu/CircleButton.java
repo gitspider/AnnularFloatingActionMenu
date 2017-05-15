@@ -738,13 +738,22 @@ public class CircleButton extends LinearLayout {
     }
 
     /**
-     * Set Border Radius of the button
+     * Set Radius of the button
      *
      * @param radius : Radius
      */
     public void setRadius(int radius) {
         this.mRadius = radius;
         setupBackground();
+    }
+
+    /**
+     * Get Radius of the button
+     *
+     * @return radius
+     */
+    public int getRadius() {
+        return this.mRadius;
     }
 
     /**

@@ -119,10 +119,11 @@ public class FloatingActionButton extends CircleButton {
         else {
             WindowManager.LayoutParams lp = (WindowManager.LayoutParams) getLayoutParams();
             lp.gravity = Gravity.NO_GRAVITY;
+            lp.x = xPos;
+            lp.y = yPos;
             setLayoutParams(lp);
 
-            setLeft(xPos);
-            setTop(yPos);
+            getWindowManager().updateViewLayout(this, lp);
         }
     }
 
@@ -185,16 +186,28 @@ public class FloatingActionButton extends CircleButton {
         private boolean systemOverlay;
 
         public Builder(Context context) {
+            this(context, false);
+        }
+
+        public Builder(Context context, boolean systemOverlay) {
             this.context = context;
 
             // Default FloatingActionButton settings
             int size = context.getResources().getDimensionPixelSize(R.dimen.action_button_size);
             int margin = context.getResources().getDimensionPixelSize(R.dimen.action_button_margin);
-            FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(size, size, Gravity.BOTTOM | Gravity.END);
-            layoutParams.setMargins(margin, margin, margin, margin);
-            setLayoutParams(layoutParams);
+
+            if (systemOverlay) {
+                WindowManager.LayoutParams layoutParams = getDefaultSystemWindowParams(context);
+                setLayoutParams(layoutParams);
+            }
+            else {
+                FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(size, size, Gravity.BOTTOM | Gravity.END);
+                layoutParams.setMargins(margin, margin, margin, margin);
+                setLayoutParams(layoutParams);
+            }
+
             setPosition(FloatingActionButton.POSITION_BOTTOM_RIGHT);
-            setSystemOverlay(false);
+            setSystemOverlay(systemOverlay);
         }
 
         public Builder setLayoutParams(ViewGroup.LayoutParams params) {
@@ -209,6 +222,19 @@ public class FloatingActionButton extends CircleButton {
 
         public Builder setSystemOverlay(boolean systemOverlay) {
             this.systemOverlay = systemOverlay;
+
+            int size = context.getResources().getDimensionPixelSize(R.dimen.action_button_size);
+            int margin = context.getResources().getDimensionPixelSize(R.dimen.action_button_margin);
+            if (systemOverlay) {
+                WindowManager.LayoutParams layoutParams = getDefaultSystemWindowParams(context);
+                setLayoutParams(layoutParams);
+            }
+            else {
+                FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(size, size, Gravity.BOTTOM | Gravity.END);
+                layoutParams.setMargins(margin, margin, margin, margin);
+                setLayoutParams(layoutParams);
+            }
+
             return this;
         }
 

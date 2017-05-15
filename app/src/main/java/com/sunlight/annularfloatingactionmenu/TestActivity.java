@@ -1,7 +1,14 @@
 package com.sunlight.annularfloatingactionmenu;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -23,6 +30,15 @@ public class TestActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (! Settings.canDrawOverlays(this)) {
+                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                        Uri.parse("package:" + getPackageName()));
+                startActivityForResult(intent, 2);
+
+                return;
+            }
+        }
 
         SubActionButton.Builder itemBuilder = new SubActionButton.Builder(this);
 
@@ -47,24 +63,28 @@ public class TestActivity extends AppCompatActivity {
         button4.setBackgroundColor(ResourcesCompat.getColor(getResources(), android.R.color.holo_red_dark, null));
 
         SubActionButton button5 = itemBuilder.build();
+        SubActionButton button6 = itemBuilder.build();
 
-        FloatingActionButton fab = new FloatingActionButton.Builder(this)
-                .setPosition(FloatingActionButton.POSITION_RIGHT_CENTER)
+        FloatingActionButton fab = new FloatingActionButton.Builder(this, true)
                 .build();
-        fab.setPosition(100, 200);
+        fab.setPosition(200, 300);
         fab.setIconResource(android.R.drawable.ic_dialog_email);
         fab.setBackgroundColor(ResourcesCompat.getColor(getResources(), android.R.color.holo_red_light, null));
 
-        /*FloatingActionMenu menu = new FloatingActionMenu.Builder(this)
-                .addSubActionView(button1)
-                .addSubActionView(button2)
-                .addSubActionView(button4)
-                .addSubActionView(button3)
-                .addSubActionView(button5)
+        int w = button1.getRadius();
+        int h = button1.getRadius();
+
+        FloatingActionMenu menu = new FloatingActionMenu.Builder(this, true)
+                .addSubActionView(button1, w, h)
+                .addSubActionView(button2, w, h)
+                .addSubActionView(button4, w, h)
+                .addSubActionView(button3, w, h)
+                .addSubActionView(button5, w, h)
+                .addSubActionView(button6, w, h)
                 .attachTo(fab)
-                .setStartAngle(90)
-                .setEndAngle(270)
-                .build();*/
+                .setStartAngle(0)
+                .setEndAngle(360)
+                .build();
     }
 
     @Override
