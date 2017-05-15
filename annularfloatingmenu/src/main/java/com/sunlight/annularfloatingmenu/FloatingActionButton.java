@@ -108,6 +108,12 @@ public class FloatingActionButton extends CircleButton {
         }
     }
 
+    /**
+     * Sets the custom position of action button not regarding to gravity
+     *
+     * @param xPos left
+     * @param yPos top
+     */
     public void setPosition(int xPos, int yPos) {
         if (!systemOverlay) {
             FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) getLayoutParams();

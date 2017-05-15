@@ -293,7 +293,7 @@ public class FloatingActionMenu {
         // Simply update layout params for each item
         for (int i = 0; i < subActionItems.size(); i++) {
             // This is currently done by giving them large margins
-            final FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(subActionItems.get(i).width, subActionItems.get(i).height, Gravity.TOP | Gravity.LEFT);
+            final FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(subActionItems.get(i).width, subActionItems.get(i).height, Gravity.TOP | Gravity.START);
             params.setMargins(subActionItems.get(i).x, subActionItems.get(i).y, 0, 0);
             subActionItems.get(i).view.setLayoutParams(params);
         }
@@ -579,9 +579,9 @@ public class FloatingActionMenu {
     /**
      * A listener to listen isOpened/closed state changes of the Menu
      */
-    public static interface MenuStateChangeListener {
-        public void onMenuOpened(FloatingActionMenu menu);
-        public void onMenuClosed(FloatingActionMenu menu);
+    public interface MenuStateChangeListener {
+        void onMenuOpened(FloatingActionMenu menu);
+        void onMenuClosed(FloatingActionMenu menu);
     }
 
     /**

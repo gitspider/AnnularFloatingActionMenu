@@ -65,7 +65,7 @@ public class TestActivity extends AppCompatActivity {
         SubActionButton button5 = itemBuilder.build();
         SubActionButton button6 = itemBuilder.build();
 
-        FloatingActionButton fab = new FloatingActionButton.Builder(this, true)
+        FloatingActionButton fab = new FloatingActionButton.Builder(this)
                 .build();
         fab.setPosition(200, 300);
         fab.setIconResource(android.R.drawable.ic_dialog_email);
@@ -74,7 +74,7 @@ public class TestActivity extends AppCompatActivity {
         int w = button1.getRadius();
         int h = button1.getRadius();
 
-        FloatingActionMenu menu = new FloatingActionMenu.Builder(this, true)
+        FloatingActionMenu menu = new FloatingActionMenu.Builder(this)
                 .addSubActionView(button1, w, h)
                 .addSubActionView(button2, w, h)
                 .addSubActionView(button4, w, h)
