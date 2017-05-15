@@ -28,48 +28,10 @@ import java.util.ArrayList;
  *
  */
 
-public class RoundButton extends LinearLayout {
-    public static final String TAG = RoundButton.class.getSimpleName();
+public class CircleButton extends LinearLayout {
+    public static final String TAG = CircleButton.class.getSimpleName();
 
     private Context mContext;
-
-    // # Background Attributes
-    private int mDefaultBackgroundColor = Color.BLACK;
-    private int mFocusBackgroundColor = 0;
-    private int mDisabledBackgroundColor = Color.parseColor("#f6f7f9");
-    private int mDisabledTextColor = Color.parseColor("#bec2c9");
-    private int mDisabledBorderColor = Color.parseColor("#dddfe2");
-
-    // # Text Attributes
-    private int mDefaultTextColor = Color.WHITE;
-    private int mDefaultIconColor = Color.WHITE;
-    private int mTextPosition = 1;
-    private int mDefaultTextSize = Utils.spToPx(getContext(), 15);
-    private int mDefaultTextGravity = 0x11; // Gravity.CENTER
-    private String mText = null;
-
-    // # Icon Attributes
-    private Drawable mIconResource = null;
-    private int mFontIconSize = Utils.spToPx(getContext(), 15);
-    private String mFontIcon = null;
-    private int mIconPosition = 3;
-
-    private int mIconPaddingLeft = 10;
-    private int mIconPaddingRight = 10;
-    private int mIconPaddingTop = 0;
-    private int mIconPaddingBottom = 0;
-
-
-    private int mBorderColor = Color.TRANSPARENT;
-    private int mBorderWidth = 0;
-
-    private int mRadius = 0;
-    private boolean mEnabled = true;
-
-    private boolean mTextAllCaps = false;
-
-    private Typeface mTextTypeFace = null;
-    private Typeface mIconTypeFace = null;
 
     /**
      * Tags to identify icon position
@@ -78,6 +40,46 @@ public class RoundButton extends LinearLayout {
     public static final int POSITION_RIGHT = 2;
     public static final int POSITION_TOP = 3;
     public static final int POSITION_BOTTOM = 4;
+
+    // # Background Attributes
+    private int mDefaultBackgroundColor = Color.rgb(30, 96, 230);
+    private int mFocusBackgroundColor = 0;
+    private int mDisabledBackgroundColor = Color.parseColor("#f6f7f9");
+    private int mDisabledTextColor = Color.parseColor("#bec2c9");
+    private int mDisabledBorderColor = Color.parseColor("#dddfe2");
+
+    // # Text Attributes @deprecated
+    private int mDefaultTextColor = Color.WHITE;
+    private int mDefaultIconColor = Color.WHITE;
+    private int mDefaultTextSize = Utils.spToPx(getContext(), 15);
+    private int mDefaultTextGravity = Gravity.CENTER;
+    private String mText = null;
+
+    // # Icon Attributes
+    private Drawable mIconResource = null;
+    private int mFontIconSize = Utils.spToPx(getContext(), 15);
+    private String mFontIcon = null;
+    private int mIconPosition = POSITION_TOP;
+
+    private int mIconPaddingLeft = 10;
+    private int mIconPaddingRight = 10;
+    private int mIconPaddingTop = 0;
+    private int mIconPaddingBottom = 0;
+
+    // Label Attributes
+    protected String mLabelText;
+    private int mDefaultLabelColor = Color.WHITE;
+
+    private int mBorderColor = Color.TRANSPARENT;
+    private int mBorderWidth = 0;
+
+    private int mRadius = 2;
+    private boolean mEnabled = true;
+
+    private boolean mTextAllCaps = false;
+
+    private Typeface mTextTypeFace = null;
+    private Typeface mIconTypeFace = null;
 
     private String mDefaultIconFont = "fontawesome.ttf";
     private String mDefaultTextFont = "robotoregular.ttf";
@@ -95,7 +97,7 @@ public class RoundButton extends LinearLayout {
      *
      * @param context : Context
      */
-    public RoundButton(Context context) {
+    public CircleButton(Context context) {
         super(context);
         this.mContext = context;
 
@@ -111,7 +113,7 @@ public class RoundButton extends LinearLayout {
      * @param context : Context
      * @param attrs   : Attributes Array
      */
-    public RoundButton(Context context, AttributeSet attrs) {
+    public CircleButton(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.mContext = context;
 
@@ -191,6 +193,7 @@ public class RoundButton extends LinearLayout {
         textView.setTextColor(mEnabled ? mDefaultTextColor : mDisabledTextColor);
         textView.setTextSize(Utils.pxToSp(getContext(), mDefaultTextSize));
         textView.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+
         if (!isInEditMode() && !mUseSystemFont) {
             textView.setTypeface(mTextTypeFace); //we can pass null in first arg
         }
@@ -254,7 +257,7 @@ public class RoundButton extends LinearLayout {
             iconView.setImageDrawable(mIconResource);
             iconView.setPadding(mIconPaddingLeft, mIconPaddingTop, mIconPaddingRight, mIconPaddingBottom);
 
-            LayoutParams iconViewParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+            LayoutParams iconViewParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
             if (mTextView != null) {
                 if (mIconPosition == POSITION_TOP || mIconPosition == POSITION_BOTTOM)
                     iconViewParams.gravity = Gravity.CENTER;
@@ -264,7 +267,7 @@ public class RoundButton extends LinearLayout {
                 iconViewParams.rightMargin = 10;
                 iconViewParams.leftMargin = 10;
             } else {
-                iconViewParams.gravity = Gravity.CENTER_VERTICAL;
+                iconViewParams.gravity = Gravity.CENTER_VERTICAL | Gravity.CENTER;
             }
             iconView.setLayoutParams(iconViewParams);
 
@@ -327,7 +330,6 @@ public class RoundButton extends LinearLayout {
         String iconFontFamily = attrsArray.getString(R.styleable.RoundButtonsAttrs_rb_iconFont);
         String textFontFamily = attrsArray.getString(R.styleable.RoundButtonsAttrs_rb_textFont);
 
-        Drawable icon = null;
         try {
             mIconResource = attrsArray.getDrawable(R.styleable.RoundButtonsAttrs_rb_iconResource);
 
@@ -371,6 +373,8 @@ public class RoundButton extends LinearLayout {
 
         // Default Drawable
         GradientDrawable defaultDrawable = new GradientDrawable();
+        defaultDrawable.mutate();
+        //defaultDrawable.setShape(GradientDrawable.OVAL);
         defaultDrawable.setCornerRadius(mRadius);
         if (mGhost) {
             defaultDrawable.setColor(ResourcesCompat.getColor(getResources(), android.R.color.transparent, null)); // Hollow Background

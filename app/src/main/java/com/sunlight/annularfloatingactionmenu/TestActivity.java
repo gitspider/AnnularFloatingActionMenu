@@ -2,7 +2,6 @@ package com.sunlight.annularfloatingactionmenu;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -23,6 +22,7 @@ public class TestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_test);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
         SubActionButton.Builder itemBuilder = new SubActionButton.Builder(this);
 
@@ -51,12 +51,11 @@ public class TestActivity extends AppCompatActivity {
         FloatingActionButton fab = new FloatingActionButton.Builder(this)
                 .setPosition(FloatingActionButton.POSITION_RIGHT_CENTER)
                 .build();
+        fab.setPosition(100, 200);
         fab.setIconResource(android.R.drawable.ic_dialog_email);
         fab.setBackgroundColor(ResourcesCompat.getColor(getResources(), android.R.color.holo_red_light, null));
 
-        android.support.design.widget.FloatingActionButton btn;
-
-        FloatingActionMenu menu = new FloatingActionMenu.Builder(this)
+        /*FloatingActionMenu menu = new FloatingActionMenu.Builder(this)
                 .addSubActionView(button1)
                 .addSubActionView(button2)
                 .addSubActionView(button4)
@@ -65,7 +64,7 @@ public class TestActivity extends AppCompatActivity {
                 .attachTo(fab)
                 .setStartAngle(90)
                 .setEndAngle(270)
-                .build();
+                .build();*/
     }
 
     @Override

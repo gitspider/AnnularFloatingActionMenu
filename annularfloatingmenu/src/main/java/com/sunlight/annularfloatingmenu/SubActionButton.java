@@ -2,7 +2,6 @@ package com.sunlight.annularfloatingmenu;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -12,7 +11,7 @@ import android.widget.FrameLayout;
  *
  */
 
-public class SubActionButton extends RoundButton {
+public class SubActionButton extends CircleButton {
 
     public SubActionButton(Context context, FrameLayout.LayoutParams layoutParams, Drawable backgroundDrawable, View contentView, FrameLayout.LayoutParams contentParams) {
         super(context);

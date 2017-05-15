@@ -24,14 +24,14 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.sunlight.annularfloatingmenu.RoundButton
+        <com.sunlight.annularfloatingmenu.CircleButton
             android:id="@+id/btn_round"
             fancy:rb_defaultColor="#007ee5"
             fancy:rb_focusColor="#313131"
             fancy:rb_iconPaddingLeft="0dp"
             fancy:rb_iconPaddingRight="0dp"
             fancy:rb_radius="64dp"
-            fancy:rb_text=""
+            fancy:rb_text="A"
             fancy:rb_iconResource="@android:drawable/ic_dialog_alert"
             android:layout_width="64dp"
             android:layout_height="64dp"

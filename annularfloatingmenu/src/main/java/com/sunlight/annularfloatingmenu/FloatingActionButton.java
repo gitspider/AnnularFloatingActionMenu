@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 
 /**
  * Created by SunLight on 5/11/2017.
@@ -18,7 +17,7 @@ import android.widget.LinearLayout;
  */
 
 @SuppressWarnings("JavaDoc")
-public class FloatingActionButton extends RoundButton {
+public class FloatingActionButton extends CircleButton {
 
     protected  static final int POSITION_CUSTOM = 0;
     public static final int POSITION_TOP_CENTER = 1;
@@ -30,12 +29,7 @@ public class FloatingActionButton extends RoundButton {
     public static final int POSITION_LEFT_CENTER = 7;
     public static final int POSITION_TOP_LEFT = 8;
 
-    private static final int DEFAULT_RADIUS = 50;
-
-    private View contentView;
-
     private boolean systemOverlay;
-
 
 
     /**
@@ -47,6 +41,8 @@ public class FloatingActionButton extends RoundButton {
     public FloatingActionButton(Context context, ViewGroup.LayoutParams layoutParams, int position, boolean systemOverlay) {
         super(context);
         this.systemOverlay = systemOverlay;
+
+        setLayoutParams(layoutParams);
 
         setPosition(position, layoutParams);
         setRadius(context.getResources().getDimensionPixelSize(R.dimen.action_button_size));
@@ -94,56 +90,41 @@ public class FloatingActionButton extends RoundButton {
                 gravity = Gravity.BOTTOM | Gravity.END;
                 break;
         }
+
         if(!systemOverlay) {
-            try {
-                FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) layoutParams;
-                lp.gravity = gravity;
-                setLayoutParams(lp);
-            } catch (ClassCastException e) {
-                throw new ClassCastException("layoutParams must be an instance of " +
-                        "FrameLayout.LayoutParams, since this FAB is not a systemOverlay");
-            }
+            FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) getLayoutParams();
+            lp.gravity = gravity;
+            setLayoutParams(lp);
         }
         else {
-            try {
-                WindowManager.LayoutParams lp = (WindowManager.LayoutParams) layoutParams;
-                lp.gravity = gravity;
-                if(setDefaultMargin) {
-                    int margin =  getContext().getResources().getDimensionPixelSize(R.dimen.action_button_margin);
-                    lp.x = margin;
-                    lp.y = margin;
-                }
-                setLayoutParams(lp);
-            } catch(ClassCastException e) {
-                throw new ClassCastException("layoutParams must be an instance of " +
-                        "WindowManager.LayoutParams, since this FAB is a systemOverlay");
+            WindowManager.LayoutParams lp = (WindowManager.LayoutParams) getLayoutParams();
+            lp.gravity = gravity;
+            if(setDefaultMargin) {
+                int margin =  getContext().getResources().getDimensionPixelSize(R.dimen.action_button_margin);
+                lp.x = margin;
+                lp.y = margin;
             }
+            setLayoutParams(lp);
         }
     }
 
-    public void setPosition(int xPos, int yPos, ViewGroup.LayoutParams layoutParams) {
-        // TODO: implement custom position here
-    }
+    public void setPosition(int xPos, int yPos) {
+        if (!systemOverlay) {
+            FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) getLayoutParams();
+            lp.gravity = Gravity.NO_GRAVITY;
+            setLayoutParams(lp);
 
-    /**
-     * Sets a content view that will be displayed inside this FloatingActionButton.
-     * @param contentView
-     */
-    public void setContentView(View contentView, LinearLayout.LayoutParams contentParams) {
-        this.contentView = contentView;
-        LinearLayout.LayoutParams params;
-        if(contentParams == null ){
-            params = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, Gravity.CENTER);
-            final int margin = getResources().getDimensionPixelSize(R.dimen.action_button_content_margin);
-            params.setMargins(margin, margin, margin, margin);
+            setLeft(xPos);
+            setTop(yPos);
         }
         else {
-            params = contentParams;
-        }
-        params.gravity = Gravity.CENTER;
+            WindowManager.LayoutParams lp = (WindowManager.LayoutParams) getLayoutParams();
+            lp.gravity = Gravity.NO_GRAVITY;
+            setLayoutParams(lp);
 
-        contentView.setClickable(false);
-        this.addView(contentView, params);
+            setLeft(xPos);
+            setTop(yPos);
+        }
     }
 
     /**
@@ -194,26 +175,14 @@ public class FloatingActionButton extends RoundButton {
         return (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
     }
 
-    private void setBackgroundResource(Drawable drawable) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            setBackground(drawable);
-        }
-        else {
-            setBackgroundDrawable(drawable);
-        }
-    }
-
-    /**
+    /**h
      * A builder for {@link FloatingActionButton} in conventional Java Builder format
      */
     public static class Builder {
 
         private Context context;
         private ViewGroup.LayoutParams layoutParams;
-        private Drawable backgroundDrawable;
         private int position;
-        private View contentView;
-        private LayoutParams contentParams;
         private boolean systemOverlay;
 
         public Builder(Context context) {
@@ -234,27 +203,8 @@ public class FloatingActionButton extends RoundButton {
             return this;
         }
 
-        public Builder setBackgroundDrawable(Drawable backgroundDrawable) {
-            this.backgroundDrawable = backgroundDrawable;
-            return this;
-        }
-
-        public Builder setBackgroundDrawable(int drawableId) {
-            return setBackgroundDrawable(context.getResources().getDrawable(drawableId));
-        }
-
         public Builder setPosition(int position) {
             this.position = position;
-            return this;
-        }
-
-        public Builder setContentView(View contentView) {
-            return setContentView(contentView, null);
-        }
-
-        public Builder setContentView(View contentView, LayoutParams contentParams) {
-            this.contentView = contentView;
-            this.contentParams = contentParams;
             return this;
         }
 
