@@ -44,7 +44,7 @@ public class FloatingActionButton extends CircleButton {
 
         setLayoutParams(layoutParams);
 
-        setPosition(position, layoutParams);
+        setPosition(position);
         setRadius(context.getResources().getDimensionPixelSize(R.dimen.action_button_size));
 
         setClickable(true);
@@ -55,9 +55,8 @@ public class FloatingActionButton extends CircleButton {
     /**
      * Sets the position of the button by calculating its Gravity from the position parameter
      * @param position one of 8 specified positions.
-     * @param layoutParams should be either FrameLayout.LayoutParams or WindowManager.LayoutParams
      */
-    public void setPosition(int position, ViewGroup.LayoutParams layoutParams) {
+    public void setPosition(int position) {
 
         boolean setDefaultMargin = false;
 

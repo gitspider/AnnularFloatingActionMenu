@@ -26,6 +26,7 @@ import java.util.List;
 
 /**
  * Created by SunLight on 5/11/2017.
+ *
  */
 
 public class FloatingActionMenu {
@@ -197,7 +198,7 @@ public class FloatingActionMenu {
             for (int i = 0; i < subActionItems.size(); i++) {
                 // This is currently done by giving them large margins
 
-                final FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(subActionItems.get(i).width, subActionItems.get(i).height, Gravity.TOP | Gravity.LEFT);
+                final FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(subActionItems.get(i).width, subActionItems.get(i).height, Gravity.TOP | Gravity.START);
                 if(systemOverlay) {
                     params.setMargins(subActionItems.get(i).x - overlayParams.x, subActionItems.get(i).y - overlayParams.y, 0, 0);
                     subActionItems.get(i).view.setLayoutParams(params);
@@ -290,13 +291,29 @@ public class FloatingActionMenu {
         // recalculate x,y coordinates of Items
         calculateItemPositions();
 
-        // Simply update layout params for each item
-        for (int i = 0; i < subActionItems.size(); i++) {
-            // This is currently done by giving them large margins
-            final FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(subActionItems.get(i).width, subActionItems.get(i).height, Gravity.TOP | Gravity.START);
-            params.setMargins(subActionItems.get(i).x, subActionItems.get(i).y, 0, 0);
-            subActionItems.get(i).view.setLayoutParams(params);
+        if (systemOverlay) {
+            WindowManager.LayoutParams overlayParams = calculateOverlayContainerParams();
+            overlayContainer.setLayoutParams(overlayParams);
+
+            for (int i = 0; i < subActionItems.size(); i++) {
+                // This is currently done by giving them large margins
+                final FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(subActionItems.get(i).width, subActionItems.get(i).height, Gravity.TOP | Gravity.START);
+                params.setMargins(subActionItems.get(i).x - overlayParams.x, subActionItems.get(i).y - overlayParams.y, 0, 0);
+                subActionItems.get(i).view.setLayoutParams(params);
+            }
+            getWindowManager().updateViewLayout(overlayContainer, overlayParams);
         }
+        else {
+            // Simply update layout params for each item
+            for (int i = 0; i < subActionItems.size(); i++) {
+                // This is currently done by giving them large margins
+                final FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(subActionItems.get(i).width, subActionItems.get(i).height, Gravity.TOP | Gravity.START);
+
+                params.setMargins(subActionItems.get(i).x, subActionItems.get(i).y, 0, 0);
+                subActionItems.get(i).view.setLayoutParams(params);
+            }
+        }
+
     }
 
     /**
