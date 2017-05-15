@@ -112,10 +112,9 @@ public class FloatingActionButton extends CircleButton {
         if (!systemOverlay) {
             FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) getLayoutParams();
             lp.gravity = Gravity.NO_GRAVITY;
+            lp.leftMargin = xPos;
+            lp.topMargin = yPos;
             setLayoutParams(lp);
-
-            setLeft(xPos);
-            setTop(yPos);
         }
         else {
             WindowManager.LayoutParams lp = (WindowManager.LayoutParams) getLayoutParams();
