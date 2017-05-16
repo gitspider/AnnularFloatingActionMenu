@@ -1,9 +1,7 @@
 package com.sunlight.annularfloatingmenu;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.Gravity;
-import android.view.View;
 import android.widget.FrameLayout;
 
 /**
