@@ -372,7 +372,6 @@ public class RoundIconButton extends LinearLayout {
         // Default Drawable
         GradientDrawable defaultDrawable = new GradientDrawable();
         defaultDrawable.mutate();
-        //defaultDrawable.setShape(GradientDrawable.OVAL);
         defaultDrawable.setCornerRadius(mRadius);
         if (mGhost) {
             defaultDrawable.setColor(ResourcesCompat.getColor(getResources(), android.R.color.transparent, null)); // Hollow Background
@@ -403,7 +402,6 @@ public class RoundIconButton extends LinearLayout {
                 disabledDrawable.setColor(getResources().getColor(android.R.color.transparent));
             }
         }
-
 
         if (mUseRippleEffect && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 

@@ -9,6 +9,7 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.hardware.SensorManager;
+import android.os.Handler;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -292,7 +293,7 @@ public class FloatingActionMenu {
         calculateItemPositions();
 
         if (systemOverlay) {
-            WindowManager.LayoutParams overlayParams = calculateOverlayContainerParams();
+            final WindowManager.LayoutParams overlayParams = calculateOverlayContainerParams();
             overlayContainer.setLayoutParams(overlayParams);
 
             for (int i = 0; i < subActionItems.size(); i++) {
@@ -301,7 +302,15 @@ public class FloatingActionMenu {
                 params.setMargins(subActionItems.get(i).x - overlayParams.x, subActionItems.get(i).y - overlayParams.y, 0, 0);
                 subActionItems.get(i).view.setLayoutParams(params);
             }
+
             getWindowManager().updateViewLayout(overlayContainer, overlayParams);
+            /*Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    getWindowManager().updateViewLayout(overlayContainer, overlayParams);
+                }
+            };
+            new Handler().post(runnable);*/
         }
         else {
             // Simply update layout params for each item

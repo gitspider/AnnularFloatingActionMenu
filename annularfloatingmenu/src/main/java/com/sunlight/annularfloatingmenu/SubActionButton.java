@@ -21,30 +21,6 @@ public class SubActionButton extends RoundIconButton {
     }
 
     /**
-     * Sets a content view with custom LayoutParams that will be displayed inside this SubActionButton.
-     * @param contentView
-     * @param params
-     */
-    public void setContentView(View contentView, FrameLayout.LayoutParams params) {
-        if(params == null) {
-            params = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, Gravity.CENTER);
-            final int margin = getResources().getDimensionPixelSize(R.dimen.sub_action_button_content_margin);
-            params.setMargins(margin, margin, margin, margin);
-        }
-
-        contentView.setClickable(false);
-        this.addView(contentView, params);
-    }
-
-    /**
-     * Sets a content view with default LayoutParams
-     * @param contentView
-     */
-    public void setContentView(View contentView) {
-        setContentView(contentView, null);
-    }
-
-    /**
      * A builder for {@link SubActionButton} in conventional Java Builder format
      */
     public static class Builder {

@@ -11,6 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.sunlight.annularfloatingmenu.RoundIconButton;
@@ -19,6 +22,12 @@ import com.sunlight.annularfloatingmenu.FloatingActionMenu;
 import com.sunlight.annularfloatingmenu.SubActionButton;
 
 public class TestActivity extends AppCompatActivity {
+
+    FloatingActionButton fab;
+    FloatingActionMenu menu;
+
+    private int _xDelta;
+    private int _yDelta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,19 +51,12 @@ public class TestActivity extends AppCompatActivity {
         SubActionButton button1 = itemBuilder.build();
         button1.setBackgroundColor(Color.WHITE);
         button1.setIconResource(android.R.drawable.ic_btn_speak_now);
+        button1.setBorderColor(Color.DKGRAY);
+        button1.setBorderWidth(1);
 
         SubActionButton button2 = itemBuilder.build();
 
         SubActionButton button3 = itemBuilder.build();
-
-
-        ImageView itemIcon2 = new ImageView(this); // Create an icon
-        itemIcon2.setImageResource(android.R.drawable.ic_dialog_dialer);
-        button2.setContentView(itemIcon2);
-
-        ImageView itemIcon3 = new ImageView(this); // Create an icon
-        itemIcon3.setImageResource(android.R.drawable.ic_dialog_alert);
-        button3.setContentView(itemIcon3);
 
         SubActionButton button4 = itemBuilder.build();
         button4.setBackgroundColor(ResourcesCompat.getColor(getResources(), android.R.color.holo_red_dark, null));
@@ -62,16 +64,16 @@ public class TestActivity extends AppCompatActivity {
         SubActionButton button5 = itemBuilder.build();
         SubActionButton button6 = itemBuilder.build();
 
-        FloatingActionButton fab = new FloatingActionButton.Builder(this)
+        fab = new FloatingActionButton.Builder(this)
                 .build();
-        fab.setPosition(200, 300);
+        fab.setPosition(300, 400);
         fab.setIconResource(android.R.drawable.ic_dialog_email);
         fab.setBackgroundColor(ResourcesCompat.getColor(getResources(), android.R.color.holo_red_light, null));
 
         int w = button2.getRadius();
         int h = button2.getRadius();
 
-        FloatingActionMenu menu = new FloatingActionMenu.Builder(this)
+        menu = new FloatingActionMenu.Builder(this)
                 .addSubActionView(button1, w, h)
                 .addSubActionView(button2, w, h)
                 .addSubActionView(button4, w, h)
@@ -82,6 +84,37 @@ public class TestActivity extends AppCompatActivity {
                 .setStartAngle(0)
                 .setEndAngle(360)
                 .build();
+
+        /*fab.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                FloatingActionButton button = (FloatingActionButton) v;
+
+                final int X = (int) event.getRawX();
+                final int Y = (int) event.getRawY();
+                WindowManager.LayoutParams lp = (WindowManager.LayoutParams) v.getLayoutParams();
+                switch (event.getAction() & MotionEvent.ACTION_MASK) {
+                    case MotionEvent.ACTION_DOWN:
+                        _xDelta = X - lp.x;
+                        _yDelta = Y - lp.y;
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                    case MotionEvent.ACTION_UP:
+                        button.setPosition(X - _xDelta, Y - _yDelta);
+                        button.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                menu.updateItemPositions();
+                            }
+                        });
+
+                        break;
+                    default:
+                        return false;
+                }
+                return false;
+            }
+        });*/
     }
 
     @Override
@@ -104,5 +137,15 @@ public class TestActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void actionClick(View v) {
+        fab.setPosition(400, 200);
+        fab.post(new Runnable() {
+            @Override
+            public void run() {
+                menu.updateItemPositions();
+            }
+        });
     }
 }
