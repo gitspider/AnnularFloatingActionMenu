@@ -1,22 +1,19 @@
 package com.sunlight.annularfloatingactionmenu;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
+import com.sunlight.annularfloatingmenu.RoundIconButton;
 import com.sunlight.annularfloatingmenu.FloatingActionButton;
 import com.sunlight.annularfloatingmenu.FloatingActionMenu;
 import com.sunlight.annularfloatingmenu.SubActionButton;
@@ -43,13 +40,13 @@ public class TestActivity extends AppCompatActivity {
         SubActionButton.Builder itemBuilder = new SubActionButton.Builder(this);
 
         SubActionButton button1 = itemBuilder.build();
+        button1.setBackgroundColor(Color.WHITE);
+        button1.setIconResource(android.R.drawable.ic_btn_speak_now);
+
         SubActionButton button2 = itemBuilder.build();
 
         SubActionButton button3 = itemBuilder.build();
 
-        ImageView itemIcon1 = new ImageView(this); // Create an icon
-        itemIcon1.setImageResource(android.R.drawable.ic_dialog_map);
-        button1.setContentView(itemIcon1);
 
         ImageView itemIcon2 = new ImageView(this); // Create an icon
         itemIcon2.setImageResource(android.R.drawable.ic_dialog_dialer);
@@ -71,8 +68,8 @@ public class TestActivity extends AppCompatActivity {
         fab.setIconResource(android.R.drawable.ic_dialog_email);
         fab.setBackgroundColor(ResourcesCompat.getColor(getResources(), android.R.color.holo_red_light, null));
 
-        int w = button1.getRadius();
-        int h = button1.getRadius();
+        int w = button2.getRadius();
+        int h = button2.getRadius();
 
         FloatingActionMenu menu = new FloatingActionMenu.Builder(this)
                 .addSubActionView(button1, w, h)

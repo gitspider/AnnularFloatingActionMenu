@@ -3,8 +3,6 @@ package com.sunlight.annularfloatingmenu;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.PixelFormat;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +14,7 @@ import android.widget.FrameLayout;
  *
  */
 
-@SuppressWarnings("JavaDoc")
-public class FloatingActionButton extends CircleButton {
+public class FloatingActionButton extends RoundIconButton {
 
     protected  static final int POSITION_CUSTOM = 0;
     public static final int POSITION_TOP_CENTER = 1;
@@ -46,8 +43,6 @@ public class FloatingActionButton extends CircleButton {
 
         setPosition(position);
         setRadius(context.getResources().getDimensionPixelSize(R.dimen.action_button_size));
-
-        setClickable(true);
 
         attach(layoutParams);
     }

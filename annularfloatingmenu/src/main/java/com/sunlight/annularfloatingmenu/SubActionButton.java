@@ -11,18 +11,13 @@ import android.widget.FrameLayout;
  *
  */
 
-public class SubActionButton extends CircleButton {
+public class SubActionButton extends RoundIconButton {
 
-    public SubActionButton(Context context, FrameLayout.LayoutParams layoutParams, Drawable backgroundDrawable, View contentView, FrameLayout.LayoutParams contentParams) {
+    public SubActionButton(Context context, FrameLayout.LayoutParams layoutParams) {
         super(context);
 
         setLayoutParams(layoutParams);
         setRadius(context.getResources().getDimensionPixelSize(R.dimen.sub_action_button_size));
-
-        if(contentView != null) {
-            setContentView(contentView, contentParams);
-        }
-        setClickable(true);
     }
 
     /**
@@ -56,16 +51,13 @@ public class SubActionButton extends CircleButton {
 
         private Context context;
         private FrameLayout.LayoutParams layoutParams;
-        private Drawable backgroundDrawable;
-        private View contentView;
-        private FrameLayout.LayoutParams contentParams;
 
         public Builder(Context context) {
             this.context = context;
 
             // Default SubActionButton settings
             int size = context.getResources().getDimensionPixelSize(R.dimen.sub_action_button_size);
-            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(size, size, Gravity.TOP | Gravity.LEFT);
+            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(size, size, Gravity.TOP | Gravity.START);
             setLayoutParams(params);
         }
 
@@ -74,28 +66,8 @@ public class SubActionButton extends CircleButton {
             return this;
         }
 
-        public Builder setBackgroundDrawable(Drawable backgroundDrawable) {
-            this.backgroundDrawable = backgroundDrawable;
-            return this;
-        }
-
-        public Builder setContentView(View contentView) {
-            this.contentView = contentView;
-            return this;
-        }
-
-        public Builder setContentView(View contentView, FrameLayout.LayoutParams contentParams) {
-            this.contentView = contentView;
-            this.contentParams = contentParams;
-            return this;
-        }
-
         public SubActionButton build() {
-            return new SubActionButton(context,
-                    layoutParams,
-                    backgroundDrawable,
-                    contentView,
-                    contentParams);
+            return new SubActionButton(context, layoutParams);
         }
     }
 }

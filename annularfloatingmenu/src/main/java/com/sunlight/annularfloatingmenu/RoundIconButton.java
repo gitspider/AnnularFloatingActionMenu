@@ -28,8 +28,8 @@ import java.util.ArrayList;
  *
  */
 
-public class CircleButton extends LinearLayout {
-    public static final String TAG = CircleButton.class.getSimpleName();
+public class RoundIconButton extends LinearLayout {
+    public static final String TAG = RoundIconButton.class.getSimpleName();
 
     private Context mContext;
 
@@ -43,7 +43,7 @@ public class CircleButton extends LinearLayout {
 
     // # Background Attributes
     private int mDefaultBackgroundColor = Color.rgb(30, 96, 230);
-    private int mFocusBackgroundColor = 0;
+    private int mFocusBackgroundColor = Color.rgb(30, 30, 30);
     private int mDisabledBackgroundColor = Color.parseColor("#f6f7f9");
     private int mDisabledTextColor = Color.parseColor("#bec2c9");
     private int mDisabledBorderColor = Color.parseColor("#dddfe2");
@@ -86,7 +86,6 @@ public class CircleButton extends LinearLayout {
 
     private ImageView mIconView;
     private TextView mFontIconView;
-    private TextView mTextView;
 
     private boolean mGhost = false; // Default is a solid button !
     private boolean mUseSystemFont = false; // Default is using robotoregular.ttf
@@ -97,7 +96,7 @@ public class CircleButton extends LinearLayout {
      *
      * @param context : Context
      */
-    public CircleButton(Context context) {
+    public RoundIconButton(Context context) {
         super(context);
         this.mContext = context;
 
@@ -113,7 +112,7 @@ public class CircleButton extends LinearLayout {
      * @param context : Context
      * @param attrs   : Attributes Array
      */
-    public CircleButton(Context context, AttributeSet attrs) {
+    public RoundIconButton(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.mContext = context;
 
@@ -135,7 +134,7 @@ public class CircleButton extends LinearLayout {
     private void initializeRoundButton() {
         initializeButtonContainer();
 
-        mTextView = setupTextView();
+        //mTextView = setupTextView();
         mIconView = setupIconView();
         mFontIconView = setupFontIconView();
 
@@ -152,13 +151,13 @@ public class CircleButton extends LinearLayout {
             if (mFontIconView != null) {
                 views.add(mFontIconView);
             }
-            if (mTextView != null) {
+            /*if (mTextView != null) {
                 views.add(mTextView);
-            }
+            }*/
         } else {
-            if (mTextView != null) {
+            /*if (mTextView != null) {
                 views.add(mTextView);
-            }
+            }*/
 
             if (mIconView != null) {
                 views.add(mIconView);
@@ -217,8 +216,7 @@ public class CircleButton extends LinearLayout {
             iconTextViewParams.topMargin = mIconPaddingTop;
             iconTextViewParams.bottomMargin = mIconPaddingBottom;
 
-            if (mTextView != null) {
-
+            /*if (mTextView != null) {
                 if (mIconPosition == POSITION_TOP || mIconPosition == POSITION_BOTTOM) {
                     iconTextViewParams.gravity = Gravity.CENTER;
                     fontIconView.setGravity(Gravity.CENTER);
@@ -226,10 +224,10 @@ public class CircleButton extends LinearLayout {
                     fontIconView.setGravity(Gravity.CENTER_VERTICAL);
                     iconTextViewParams.gravity = Gravity.CENTER_VERTICAL;
                 }
-            } else {
+            } else {*/
                 iconTextViewParams.gravity = Gravity.CENTER;
                 fontIconView.setGravity(Gravity.CENTER_VERTICAL);
-            }
+            //}
 
 
             fontIconView.setLayoutParams(iconTextViewParams);
@@ -258,7 +256,7 @@ public class CircleButton extends LinearLayout {
             iconView.setPadding(mIconPaddingLeft, mIconPaddingTop, mIconPaddingRight, mIconPaddingBottom);
 
             LayoutParams iconViewParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-            if (mTextView != null) {
+            /*if (mTextView != null) {
                 if (mIconPosition == POSITION_TOP || mIconPosition == POSITION_BOTTOM)
                     iconViewParams.gravity = Gravity.CENTER;
                 else
@@ -266,9 +264,9 @@ public class CircleButton extends LinearLayout {
 
                 iconViewParams.rightMargin = 10;
                 iconViewParams.leftMargin = 10;
-            } else {
+            } else {*/
                 iconViewParams.gravity = Gravity.CENTER_VERTICAL | Gravity.CENTER;
-            }
+            //}
             iconView.setLayoutParams(iconViewParams);
 
             return iconView;
@@ -411,7 +409,8 @@ public class CircleButton extends LinearLayout {
 
             this.setBackground(getRippleDrawable(defaultDrawable, focusDrawable, disabledDrawable));
 
-        } else {
+        }
+        else {
 
             StateListDrawable states = new StateListDrawable();
 
@@ -494,10 +493,10 @@ public class CircleButton extends LinearLayout {
     public void setText(String text) {
         text = mTextAllCaps ? text.toUpperCase() : text;
         this.mText = text;
-        if (mTextView == null)
+        /*if (mTextView == null)
             initializeRoundButton();
         else
-            mTextView.setText(text);
+            mTextView.setText(text);*/
     }
 
     /**
@@ -518,10 +517,10 @@ public class CircleButton extends LinearLayout {
      */
     public void setTextColor(int color) {
         this.mDefaultTextColor = color;
-        if (mTextView == null)
+        /*if (mTextView == null)
             initializeRoundButton();
         else
-            mTextView.setTextColor(color);
+            mTextView.setTextColor(color);*/
 
     }
 
@@ -543,7 +542,7 @@ public class CircleButton extends LinearLayout {
      */
     public void setBackgroundColor(int color) {
         this.mDefaultBackgroundColor = color;
-        if (mIconView != null || mFontIconView != null || mTextView != null) {
+        if (mIconView != null || mFontIconView != null) {
             this.setupBackground();
         }
     }
@@ -555,7 +554,7 @@ public class CircleButton extends LinearLayout {
      */
     public void setFocusBackgroundColor(int color) {
         this.mFocusBackgroundColor = color;
-        if (mIconView != null || mFontIconView != null || mTextView != null)
+        if (mIconView != null || mFontIconView != null)
             this.setupBackground();
 
     }
@@ -567,7 +566,7 @@ public class CircleButton extends LinearLayout {
      */
     public void setDisableBackgroundColor(int color) {
         this.mDisabledBackgroundColor = color;
-        if (mIconView != null || mFontIconView != null || mTextView != null)
+        if (mIconView != null || mFontIconView != null)
             this.setupBackground();
 
     }
@@ -579,11 +578,10 @@ public class CircleButton extends LinearLayout {
      */
     public void setDisableTextColor(int color) {
         this.mDisabledTextColor = color;
-        if (mTextView == null)
+        /*if (mTextView == null)
             initializeRoundButton();
         else if (!mEnabled)
-            mTextView.setTextColor(color);
-
+            mTextView.setTextColor(color);*/
     }
 
     /**
@@ -593,7 +591,7 @@ public class CircleButton extends LinearLayout {
      */
     public void setDisableBorderColor(int color) {
         this.mDisabledBorderColor = color;
-        if (mIconView != null || mFontIconView != null || mTextView != null) {
+        if (mIconView != null || mFontIconView != null) {
             this.setupBackground();
         }
 
@@ -606,8 +604,8 @@ public class CircleButton extends LinearLayout {
      */
     public void setTextSize(int textSize) {
         this.mDefaultTextSize = Utils.spToPx(getContext(), textSize);
-        if (mTextView != null)
-            mTextView.setTextSize(textSize);
+        /*if (mTextView != null)
+            mTextView.setTextSize(textSize);*/
     }
 
     /**
@@ -618,9 +616,9 @@ public class CircleButton extends LinearLayout {
 
     public void setTextGravity(int gravity) {
         this.mDefaultTextGravity = gravity;
-        if (mTextView != null) {
+        /*if (mTextView != null) {
             mTextView.setGravity(gravity);
-        }
+        }*/
     }
 
     /**
@@ -720,7 +718,7 @@ public class CircleButton extends LinearLayout {
      */
     public void setBorderColor(int color) {
         this.mBorderColor = color;
-        if (mIconView != null || mFontIconView != null || mTextView != null) {
+        if (mIconView != null || mFontIconView != null) {
             this.setupBackground();
         }
     }
@@ -732,7 +730,7 @@ public class CircleButton extends LinearLayout {
      */
     public void setBorderWidth(int width) {
         this.mBorderWidth = width;
-        if (mIconView != null || mFontIconView != null || mTextView != null) {
+        if (mIconView != null || mFontIconView != null) {
             this.setupBackground();
         }
     }
@@ -765,10 +763,10 @@ public class CircleButton extends LinearLayout {
     public void setCustomTextFont(String fontName) {
         mTextTypeFace = Utils.findFont(mContext, fontName, mDefaultTextFont);
 
-        if (mTextView == null)
+        /*if (mTextView == null)
             initializeRoundButton();
         else
-            mTextView.setTypeface(mTextTypeFace);
+            mTextView.setTypeface(mTextTypeFace);*/
 
     }
 
@@ -811,7 +809,7 @@ public class CircleButton extends LinearLayout {
     public void setGhost(boolean ghost) {
         this.mGhost = ghost;
 
-        if (mIconView != null || mFontIconView != null || mTextView != null) {
+        if (mIconView != null || mFontIconView != null) {
             this.setupBackground();
         }
 
@@ -832,19 +830,10 @@ public class CircleButton extends LinearLayout {
      * @return Text
      */
     public CharSequence getText() {
-        if (mTextView != null)
+        /*if (mTextView != null)
             return mTextView.getText();
-        else
+        else*/
             return "";
-    }
-
-    /**
-     * Return TextView Object of the RoundButton
-     *
-     * @return TextView Object
-     */
-    public TextView getTextViewObject() {
-        return mTextView;
     }
 
     /**

@@ -24,10 +24,10 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.sunlight.annularfloatingmenu.CircleButton
+        <com.sunlight.annularfloatingmenu.RoundIconButton
             android:id="@+id/btn_round"
             fancy:rb_defaultColor="#007ee5"
-            fancy:rb_focusColor="#313131"
+            fancy:rb_focusColor="#ff0000"
             fancy:rb_iconPaddingLeft="0dp"
             fancy:rb_iconPaddingRight="0dp"
             fancy:rb_radius="64dp"
@@ -36,6 +36,7 @@
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:padding="10dp" />
+
     </LinearLayout>
 
 
