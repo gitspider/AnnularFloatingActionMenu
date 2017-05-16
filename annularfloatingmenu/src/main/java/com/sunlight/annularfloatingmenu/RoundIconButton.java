@@ -205,14 +205,16 @@ public class RoundIconButton extends LinearLayout {
      * @return : TextView
      */
     private TextView setupFontIconView() {
-        TextView fontIconView = new TextView(mContext);
-        fontIconView.setTextColor(mEnabled ? mDefaultIconColor : mDisabledTextColor);
 
-        LayoutParams iconTextViewParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        iconTextViewParams.rightMargin = mIconPaddingRight;
-        iconTextViewParams.leftMargin = mIconPaddingLeft;
-        iconTextViewParams.topMargin = mIconPaddingTop;
-        iconTextViewParams.bottomMargin = mIconPaddingBottom;
+        if (mFontIcon != null) {
+            TextView fontIconView = new TextView(mContext);
+            fontIconView.setTextColor(mEnabled ? mDefaultIconColor : mDisabledTextColor);
+
+            LayoutParams iconTextViewParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+            iconTextViewParams.rightMargin = mIconPaddingRight;
+            iconTextViewParams.leftMargin = mIconPaddingLeft;
+            iconTextViewParams.topMargin = mIconPaddingTop;
+            iconTextViewParams.bottomMargin = mIconPaddingBottom;
 
             /*if (mTextView != null) {
                 if (mIconPosition == POSITION_TOP || mIconPosition == POSITION_BOTTOM) {
@@ -223,21 +225,23 @@ public class RoundIconButton extends LinearLayout {
                     iconTextViewParams.gravity = Gravity.CENTER_VERTICAL;
                 }
             } else {*/
-        iconTextViewParams.gravity = Gravity.CENTER;
-        fontIconView.setGravity(Gravity.CENTER_VERTICAL);
-        //}
+                iconTextViewParams.gravity = Gravity.CENTER;
+                fontIconView.setGravity(Gravity.CENTER_VERTICAL);
+            //}
 
 
-        fontIconView.setLayoutParams(iconTextViewParams);
-        if (!isInEditMode()) {
-            fontIconView.setTextSize(Utils.pxToSp(getContext(), mFontIconSize));
-            if (mFontIcon != null)fontIconView.setText(mFontIcon);
-            fontIconView.setTypeface(mIconTypeFace);
-        } else {
-            fontIconView.setTextSize(Utils.pxToSp(getContext(), mFontIconSize));
-            fontIconView.setText("O");
+            fontIconView.setLayoutParams(iconTextViewParams);
+            if (!isInEditMode()) {
+                fontIconView.setTextSize(Utils.pxToSp(getContext(), mFontIconSize));
+                fontIconView.setText(mFontIcon);
+                fontIconView.setTypeface(mIconTypeFace);
+            } else {
+                fontIconView.setTextSize(Utils.pxToSp(getContext(), mFontIconSize));
+                fontIconView.setText("O");
+            }
+            return fontIconView;
         }
-        return fontIconView;
+        return null;
     }
 
     /**
