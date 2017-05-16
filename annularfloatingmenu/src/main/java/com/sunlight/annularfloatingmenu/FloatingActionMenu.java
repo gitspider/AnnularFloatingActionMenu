@@ -304,13 +304,6 @@ public class FloatingActionMenu {
             }
 
             getWindowManager().updateViewLayout(overlayContainer, overlayParams);
-            /*Runnable runnable = new Runnable() {
-                @Override
-                public void run() {
-                    getWindowManager().updateViewLayout(overlayContainer, overlayParams);
-                }
-            };
-            new Handler().post(runnable);*/
         }
         else {
             // Simply update layout params for each item

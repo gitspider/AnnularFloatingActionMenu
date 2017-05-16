@@ -55,14 +55,19 @@ public class TestActivity extends AppCompatActivity {
         button1.setBorderWidth(1);
 
         SubActionButton button2 = itemBuilder.build();
+        button2.setIconResource(android.R.drawable.ic_menu_camera);
 
         SubActionButton button3 = itemBuilder.build();
+        button3.setIconResource(android.R.drawable.ic_media_play);
 
         SubActionButton button4 = itemBuilder.build();
         button4.setBackgroundColor(ResourcesCompat.getColor(getResources(), android.R.color.holo_red_dark, null));
 
         SubActionButton button5 = itemBuilder.build();
+        button5.setIconResource(android.R.drawable.ic_dialog_info);
+
         SubActionButton button6 = itemBuilder.build();
+        button6.setIconResource(android.R.drawable.ic_menu_agenda);
 
         fab = new FloatingActionButton.Builder(this)
                 .build();

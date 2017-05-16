@@ -250,12 +250,12 @@ public class RoundIconButton extends LinearLayout {
      * @return : ImageView
      */
     private ImageView setupIconView() {
-        if (mIconResource != null) {
-            ImageView iconView = new ImageView(mContext);
+        ImageView iconView = new ImageView(mContext);
+        if (mIconResource != null)
             iconView.setImageDrawable(mIconResource);
-            iconView.setPadding(mIconPaddingLeft, mIconPaddingTop, mIconPaddingRight, mIconPaddingBottom);
+        iconView.setPadding(mIconPaddingLeft, mIconPaddingTop, mIconPaddingRight, mIconPaddingBottom);
 
-            LayoutParams iconViewParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        LayoutParams iconViewParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
             /*if (mTextView != null) {
                 if (mIconPosition == POSITION_TOP || mIconPosition == POSITION_BOTTOM)
                     iconViewParams.gravity = Gravity.CENTER;
@@ -265,13 +265,11 @@ public class RoundIconButton extends LinearLayout {
                 iconViewParams.rightMargin = 10;
                 iconViewParams.leftMargin = 10;
             } else {*/
-                iconViewParams.gravity = Gravity.CENTER_VERTICAL | Gravity.CENTER;
-            //}
-            iconView.setLayoutParams(iconViewParams);
+        iconViewParams.gravity = Gravity.CENTER_VERTICAL | Gravity.CENTER;
+        //}
+        iconView.setLayoutParams(iconViewParams);
 
-            return iconView;
-        }
-        return null;
+        return iconView;
     }
 
     /**
@@ -478,9 +476,11 @@ public class RoundIconButton extends LinearLayout {
         this.setGravity(Gravity.CENTER);
         this.setClickable(true);
         this.setFocusable(true);
-        if (mIconResource == null && mFontIcon == null && getPaddingLeft() == 0 && getPaddingRight() == 0 && getPaddingTop() == 0 && getPaddingBottom() == 0) {
+        /*if (mIconResource == null && mFontIcon == null && getPaddingLeft() == 0 && getPaddingRight() == 0 && getPaddingTop() == 0 && getPaddingBottom() == 0) {
+            //int w_pd = (int) (getMeasuredWidth() * 0.15);
+            //int h_pd = (int) (getMeasuredHeight() * 0.15);
             this.setPadding(20, 20, 20, 20);
-        }
+        }*/
     }
 
     /**

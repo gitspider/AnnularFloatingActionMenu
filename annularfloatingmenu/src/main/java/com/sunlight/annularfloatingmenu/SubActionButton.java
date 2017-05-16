@@ -17,7 +17,11 @@ public class SubActionButton extends RoundIconButton {
         super(context);
 
         setLayoutParams(layoutParams);
-        setRadius(context.getResources().getDimensionPixelSize(R.dimen.sub_action_button_size));
+
+        int radius = context.getResources().getDimensionPixelSize(R.dimen.sub_action_button_size);
+        int pd = (int) (radius * 0.15);
+        setRadius(radius);
+        setIconPadding(pd, pd, pd, pd);
     }
 
     /**

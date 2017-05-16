@@ -40,9 +40,12 @@ public class FloatingActionButton extends RoundIconButton {
         this.systemOverlay = systemOverlay;
 
         setLayoutParams(layoutParams);
-
         setPosition(position);
-        setRadius(context.getResources().getDimensionPixelSize(R.dimen.action_button_size));
+
+        int radius = context.getResources().getDimensionPixelSize(R.dimen.action_button_size);
+        int pd = (int) (radius * 0.15);
+        setRadius(radius);
+        setIconPadding(pd, pd, pd, pd);
 
         attach(layoutParams);
     }
