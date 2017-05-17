@@ -460,7 +460,7 @@ public class FloatingActionMenu {
         }
     }
 
-    public WindowManager.LayoutParams calculateOverlayContainerParams() {
+    private WindowManager.LayoutParams calculateOverlayContainerParams() {
         // calculate the minimum viable size of overlayContainer
         WindowManager.LayoutParams overlayParams = getDefaultSystemWindowParams();
         int left = 9999, right = 0, top = 9999, bottom = 0;
@@ -487,6 +487,12 @@ public class FloatingActionMenu {
         overlayParams.y = top - 10;
         overlayParams.gravity = Gravity.TOP | Gravity.START;
         return overlayParams;
+    }
+
+    public WindowManager.LayoutParams getOverlayLayoutParams() {
+        calculateItemPositions();
+
+        return calculateOverlayContainerParams();
     }
 
     public void detachOverlayContainer() {
